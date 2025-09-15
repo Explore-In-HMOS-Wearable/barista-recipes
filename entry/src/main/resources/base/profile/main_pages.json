@@ -1,0 +1,10 @@
+{
+  "src": [
+    "pages/Index",
+    "pages/DairyFreeRecipes",
+    "pages/MilkRecipes",
+    "pages/CurrentCoffeeRecipe",
+    "pages/ReadyCoffee"
+
+  ]
+}
