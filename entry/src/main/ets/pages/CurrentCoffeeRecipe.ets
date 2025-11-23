@@ -1,6 +1,3 @@
-import { router } from '@kit.ArkUI'
-
-@Entry
 @Component
 export struct CurrentCoffeeRecipe {
   @State currentStep: number = 0
@@ -10,8 +7,11 @@ export struct CurrentCoffeeRecipe {
     'Froth the milk',
     'Pour the milk over the espresso'
   ]
+  @Consume('pathStack') pathStack: NavPathStack;
+
 
   build() {
+    NavDestination(){
     Flex() {
       Column({ space: 20 }) {
         Text(this.steps[this.currentStep])
@@ -53,7 +53,7 @@ export struct CurrentCoffeeRecipe {
               if (this.currentStep < this.steps.length - 1) {
                 this.currentStep++
               } else {
-                router.pushUrl({ url: 'pages/ReadyCoffee' })
+                this.pathStack.pushPathByName('ReadyCoffee', null)
               }
             })
         }
@@ -64,5 +64,8 @@ export struct CurrentCoffeeRecipe {
       .alignItems(HorizontalAlign.Center)
     }
     .backgroundColor('#5B3A1F')
+  }
+    .hideTitleBar(true)
+    .hideBackButton(true)
   }
 }

@@ -1,5 +1,9 @@
-import { ArcList, ArcListItem, ComponentContent, router } from '@kit.ArkUI';
+import { ArcList, ArcListItem, ComponentContent } from '@kit.ArkUI';
 import { CustomButton } from '../view/CustumButton';
+import { CurrentCoffeeRecipe } from './CurrentCoffeeRecipe';
+import { DairyFreeRecipes } from './DairyFreeRecipes';
+import { MilkRecipes } from './MilkRecipes';
+import { ReadyCoffee } from './ReadyCoffee';
 
 @Builder
 function header() {
@@ -13,24 +17,49 @@ function header() {
   }
 }
 
+
 @Entry
 @Component
 export struct Index {
   watchSize: string = '466px'
   context: UIContext = this.getUIContext()
   header: ComponentContent<object> = new ComponentContent(this.context, wrapBuilder(header))
+  @Provide('pathStack') pathStack: NavPathStack = new NavPathStack()
 
-  build() {
+  @Builder
+  PageMap(name: string) {
+    if (name === 'MilkRecipes') {
+      MilkRecipes()
+    } else if (name === 'DairyFreeRecipes') {
+      DairyFreeRecipes()
+    }
+    else if (name === 'CurrentCoffeeRecipe') {
+      CurrentCoffeeRecipe()
+    }
+    else if (name === 'ReadyCoffee') {
+      ReadyCoffee()
+    }
+  }
+
+
+build() {
+  Navigation(this.pathStack) {
     Flex() {
       Row() {
         Column() {
           ArcList({ header: this.header }) {
             ArcListItem() {
-              CustomButton({ title: 'Dairy-Free Recipes', router: 'pages/DairyFreeRecipes' })
+              CustomButton({ title: 'Dairy-Free Recipes' })
+                .onClick(() => {
+                  this.pathStack.pushPathByName('DairyFreeRecipes', null)
+                })
             }
 
             ArcListItem() {
-              CustomButton({ title: 'Milk Recipes', router: 'pages/MilkRecipes' })
+              CustomButton({ title: 'Milk Recipes' })
+                .onClick(() => {
+                  this.pathStack.pushPathByName('MilkRecipes', null)
+                })
             }
           }
         }
@@ -40,4 +69,9 @@ export struct Index {
     .height(this.watchSize)
     .backgroundColor('#5B3A1F')
   }
+  .hideTitleBar(true)
+  .hideBackButton(true)
+  .navDestination(this.PageMap)
+  .mode(NavigationMode.Stack)
+}
 }

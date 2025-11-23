@@ -1,12 +1,8 @@
-import { router } from '@kit.ArkUI';
-
 @Component
 export struct CustomButton {
   @Prop title: string;
-  @Prop router: string;
 
   build() {
-
     Button(this.title)
       .backgroundColor('#C6A575')
       .borderRadius(16)
@@ -22,9 +18,6 @@ export struct CustomButton {
         bottom: 10,
         left: 16,
         right: 16
-      })
-      .onClick(() => {
-        router.pushUrl({ url: this.router })
       })
 
   }

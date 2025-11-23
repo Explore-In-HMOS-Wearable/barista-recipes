@@ -13,31 +13,46 @@ function header() {
   }
 }
 
-@Entry
+
+
 @Component
 export struct MilkRecipes {
   watchSize: string = '466px'
   context: UIContext = this.getUIContext()
   header: ComponentContent<object> = new ComponentContent(this.context, wrapBuilder(header))
+  @Consume('pathStack') pathStack: NavPathStack;
 
   build() {
+    NavDestination(){
     Flex() {
       ArcList({ header: this.header }) {
         ArcListItem() {
-          CustomButton({ title: 'Latte', router: 'pages/CurrentCoffeeRecipe' })
+          CustomButton({ title: 'Latte' })
+            .onClick(() => {
+              this.pathStack.pushPathByName('CurrentCoffeeRecipe', null)
+            })
         }
 
         ArcListItem() {
-          CustomButton({ title: 'Cappuccino', router: 'pages/CurrentCoffeeRecipe' })
+          CustomButton({ title: 'Cappuccino'})
+            .onClick(() => {
+              this.pathStack.pushPathByName('CurrentCoffeeRecipe', null)
+            })
         }
 
         ArcListItem() {
-          CustomButton({ title: 'Flat White', router: 'pages/CurrentCoffeeRecipe' })
+          CustomButton({ title: 'Flat White' })
+            .onClick(() => {
+              this.pathStack.pushPathByName('CurrentCoffeeRecipe', null)
+            })
         }
       }
     }
     .width(this.watchSize)
     .height(this.watchSize)
     .backgroundColor('#5B3A1F')
+  }
+    .hideTitleBar(true)
+    .hideBackButton(true)
   }
 }

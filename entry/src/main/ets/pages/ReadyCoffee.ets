@@ -3,7 +3,7 @@ import { BusinessError } from '@kit.BasicServicesKit';
 
 @Entry
 @Component
-export struct CurrentCoffeeRecipe {
+export struct ReadyCoffee {
   watchSize: string = '466px'
 
   aboutToAppear(): void {
@@ -47,20 +47,24 @@ export struct CurrentCoffeeRecipe {
   }
 
   build() {
-    Flex() {
-      Column({ space: 20 }) {
-        Image($r('app.media.coffee')).width('40%').fillColor('#C6A575')
+    NavDestination() {
+      Flex() {
+        Column({ space: 20 }) {
+          Image($r('app.media.coffee')).width('40%').fillColor('#C6A575')
 
-        Row({ space: 10 }) {
-          Text('Please shake until the vibration stops').padding({ left: 4, bottom: 7 }).fontColor('#C6A575')
+          Row({ space: 10 }) {
+            Text('Please shake until the vibration stops').padding({ left: 4, bottom: 7 }).fontColor('#C6A575')
+          }
         }
+        .width(this.watchSize)
+        .height(this.watchSize)
+        .justifyContent(FlexAlign.Center)
+        .alignItems(HorizontalAlign.Center)
       }
-      .width(this.watchSize)
-      .height(this.watchSize)
-      .justifyContent(FlexAlign.Center)
-      .alignItems(HorizontalAlign.Center)
+      .backgroundColor('#5B3A1F')
     }
-    .backgroundColor('#5B3A1F')
+    .hideTitleBar(true)
+    .hideBackButton(true)
   }
 }
 
